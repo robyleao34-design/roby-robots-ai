@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Estúdio Roby Robots AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:20px;background:#101827;color:white;font-family:Arial,sans-serif}
+main{max-width:750px;margin:20px auto}
+h1,h2{color:#16c7e8}
+.card{background:#1e293b;padding:20px;border-radius:14px;margin:18px 0}
+label{display:block;margin-top:14px}
+input,select,textarea{width:100%;padding:13px;margin-top:7px;border-radius:8px;border:1px solid #64748b;background:#0f172a;color:white;font-size:16px}
+button{width:100%;padding:14px;margin-top:15px;border:0;border-radius:8px;background:#16c7e8;color:#101827;font-size:16px;font-weight:bold}
+.secundario{background:#475569;color:white}
+p{color:#cbd5e1;line-height:1.6}
+#rascunho{white-space:pre-wrap;line-height:1.7}
+.status{color:#facc15;font-weight:bold}
+a{color:#16c7e8}
+</style>
+</head>
+<body>
+<main>
+<a href="index.html">← Voltar ao painel</a>
+<h1>🎬 Estúdio Roby Robots AI</h1>
+<p>O robô prepara o projeto do vídeo. Você revisa e aprova antes de publicar.</p>
+
+<section class="card">
+<h2>1. Criar vídeo</h2>
+
+<label for="musica">Nome da música</label>
+<input id="musica" placeholder="Ex.: Mesmo sem ti ter">
+
+<label for="tema">Tema do vídeo</label>
+<select id="tema">
+<option value="Romance e emoção">Romance e emoção</option>
+<option value="Superação e sentimentos">Superação e sentimentos</option>
+<option value="História da música">História da música</option>
+<option value="Divulgação do artista">Divulgação do artista</option>
+</select>
+
+<label for="plataforma">Onde publicar</label>
+<select id="plataforma">
+<option>TikTok e YouTube Shorts</option>
+<option>TikTok</option>
+<option>YouTube Shorts</option>
+<option>YouTube vídeo longo</option>
+</select>
+
+<label for="ideia">Orientação adicional</label>
+<textarea id="ideia" rows="3" placeholder="Descreva como você imagina o vídeo..."></textarea>
+
+<button id="criar">Criar projeto do vídeo</button>
+</section>
+
+<section class="card" id="resultado" hidden>
+<h2>2. Projeto preparado</h2>
+<p class="status" id="status">Aguardando sua aprovação</p>
+<div id="rascunho"></div>
+<button id="aprovar">Aprovar projeto</button>
+<button id="rejeitar" class="secundario">Rejeitar projeto</button>
+<p id="aviso"></p>
+</section>
+
+<section class="card">
+<h2>3. Publicação</h2>
+<p id="publicacao">Nenhum projeto aprovado ainda.</p>
+<p>Após a aprovação, a publicação dependerá da conexão e autorização das contas nas plataformas.</p>
+</section>
+</main>
+
+<script>
+const musica=document.getElementById("musica");
+const tema=document.getElementById("tema");
+const plataforma=document.getElementById("plataforma");
+const ideia=document.getElementById("ideia");
+const resultado=document.getElementById("resultado");
+const rascunho=document.getElementById("rascunho");
+const status=document.getElementById("status");
+const aviso=document.getElementById("aviso");
+const publicacao=document.getElementById("publicacao");
+
+let projeto=null;
+
+document.getElementById("criar").onclick=()=>{
+ const nome=musica.value.trim();
+ if(!nome){alert("Digite o nome da música.");musica.focus();return;}
+
+ projeto={
+  musica:nome,
+  tema:tema.value,
+  plataforma:plataforma.value,
+  ideia:ideia.value.trim()
+ };
+
+ const titulo="Uma canção para tocar o coração | "+nome;
+ const legenda="Conheça "+nome+" de Roby Leão. Uma música feita para quem sente de verdade. Assista, compartilhe e siga @robyleao para acompanhar os próximos lançamentos.";
+ const hashtags="#RobyLeao #MusicaAutoral #MusicaRomantica #TikTokBrasil #YouTubeShorts";
+
+ rascunho.textContent=
+ "MÚSICA: "+nome+
+ "\nTEMA: "+projeto.tema+
+ "\nPLATAFORMAS: "+projeto.plataforma+
+ "\n\nTÍTULO SUGERIDO:\n"+titulo+
+ "\n\nLEGENDA:\n"+legenda+
+ "\n\nHASHTAGS:\n"+hashtags+
+ "\n\nROTEIRO DO VÍDEO:\n"+
+ "Cena 1: abertura com o nome da música.\n"+
+ "Cena 2: imagens que transmitam o tema escolhido.\n"+
+ "Cena 3: trecho da música fornecido pelo artista.\n"+
+ "Cena 4: encerramento com Roby Leão e convite para seguir @robyleao.\n"+
+ (projeto.ideia?"\nSUA ORIENTAÇÃO:\n"+projeto.ideia:"")+
+ "\n\nOBSERVAÇÃO: este é um roteiro inicial. O arquivo de vídeo ainda precisa ser produzido.";
+
+ status.textContent="Aguardando sua aprovação";
+ aviso.textContent="";
+ resultado.hidden=false;
+};
+
+document.getElementById("aprovar").onclick=()=>{
+ if(!projeto)return;
+ status.textContent="Projeto aprovado por você";
+ publicacao.textContent="Projeto aprovado: "+projeto.musica+". Pronto para a próxima etapa de produção do vídeo e integração de publicação.";
+ aviso.textContent="Aprovação registrada neste navegador. Nenhum vídeo foi publicado.";
+};
+
+document.getElementById("rejeitar").onclick=()=>{
+ status.textContent="Projeto rejeitado";
+ aviso.textContent="Você pode alterar os dados e criar outro projeto.";
+};
+</script>
+</body>
+</html>
