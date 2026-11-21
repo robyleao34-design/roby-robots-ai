@@ -1,0 +1,72 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Robô Pesquisador - Roby Robots AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:20px;background:#101827;color:white;font-family:Arial,sans-serif}
+main{max-width:700px;margin:25px auto}
+h1,h2{color:#16c7e8}
+.card{background:#1e293b;padding:22px;border-radius:14px;margin:18px 0}
+input{width:100%;padding:15px;border-radius:8px;border:1px solid #64748b;font-size:16px;margin:12px 0}
+button{background:#16c7e8;color:#101827;border:0;border-radius:8px;padding:14px 18px;font-weight:bold;font-size:16px;width:100%;cursor:pointer}
+button:disabled{opacity:.6}
+p,li{line-height:1.6;color:#dbe4f0}
+a{color:#16c7e8}
+#resultado{white-space:pre-wrap}
+.voltar{display:inline-block;margin-bottom:15px}
+</style>
+</head>
+<body>
+<main>
+<a class="voltar" href="index.html">← Voltar ao painel</a>
+<h1>🤖 Robô Pesquisador</h1>
+<p>Digite um assunto para iniciar sua pesquisa.</p>
+
+<section class="card">
+<label for="assunto">O que vamos pesquisar?</label>
+<input id="assunto" placeholder="Ex.: tendências musicais no Brasil">
+<button id="pesquisar">Pesquisar na internet</button>
+</section>
+
+<section class="card" id="area" hidden>
+<h2>Pesquisa iniciada</h2>
+<p id="mensagem"></p>
+<div id="resultado"></div>
+</section>
+</main>
+
+<script>
+const campo=document.getElementById("assunto");
+const botao=document.getElementById("pesquisar");
+const area=document.getElementById("area");
+const mensagem=document.getElementById("mensagem");
+const resultado=document.getElementById("resultado");
+
+botao.addEventListener("click",()=>{
+  const assunto=campo.value.trim();
+  if(!assunto){
+    alert("Digite um assunto para pesquisar.");
+    campo.focus();
+    return;
+  }
+
+  mensagem.textContent="Sua pesquisa foi preparada. A busca será aberta em outra aba.";
+  resultado.textContent=
+    "ASSUNTO: "+assunto+
+    "\n\nIDEIAS PARA CONTEÚDO:"+
+    "\n1. Crie um vídeo explicando "+assunto+
+    "\n2. Apresente 5 curiosidades sobre "+assunto+
+    "\n3. Faça uma lista de dicas para quem se interessa por "+assunto+
+    "\n\nPRÓXIMO PASSO: confira as fontes e os resultados da busca antes de publicar.";
+
+  area.hidden=false;
+  const url="https://www.google.com/search?q="+encodeURIComponent(assunto);
+  window.open(url,"_blank");
+});
+</script>
+</body>
+</html>
