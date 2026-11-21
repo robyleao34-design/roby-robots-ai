@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#101827">
+<title>Agente TikTok - Roby Robots AI</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;padding:20px;background:#101827;color:#f8fafc;font-family:Arial,sans-serif}
+main{max-width:760px;margin:20px auto}
+.card{background:#1e293b;padding:20px;border-radius:14px;margin:16px 0}
+h1,h2{color:#16c7e8}
+p,li{line-height:1.6;color:#dbe4f0}
+label{display:block;margin:12px 0 6px}
+input,select,textarea{width:100%;padding:13px;border-radius:8px;border:1px solid #64748b;background:#0f172a;color:white;font-size:16px}
+button,.link{display:inline-block;background:#16c7e8;color:#101827;border:0;border-radius:8px;padding:13px 17px;font-weight:bold;text-decoration:none;cursor:pointer;margin-top:12px}
+.secondary{background:#334155;color:white;margin-left:8px}
+#saida{white-space:pre-wrap;line-height:1.6}
+small{color:#94a3b8}
+.status{color:#86efac;font-weight:bold}
+</style>
+</head>
+<body>
+<main>
+<a class="link" href="index.html">← Voltar ao painel</a>
+
+<h1>Agente de divulgação TikTok</h1>
+<p>Campanha para atrair público real para
+<a href="https://www.tiktok.com/@robyleao" target="_blank" rel="noopener" style="color:#16c7e8">@robyleao</a>.
+</p>
+
+<section class="card">
+<h2>Robôs da campanha</h2>
+<ul>
+<li><b>Pesquisador:</b> organizar temas e tendências.</li>
+<li><b>Criador:</b> preparar roteiros, legendas e hashtags.</li>
+<li><b>Planejador:</b> montar calendário de publicações.</li>
+<li><b>Analista:</b> acompanhar visualizações, comentários e seguidores informados por você.</li>
+</ul>
+<small>Esta página prepara tarefas e materiais. Ainda não acessa sua conta nem executa ações no TikTok.</small>
+</section>
+
+<section class="card">
+<h2>Preparar uma publicação</h2>
+
+<label for="musica">Nome da música</label>
+<input id="musica" value="Mesmo sem ti ter">
+
+<label for="tema">Tema do vídeo</label>
+<select id="tema">
+<option>História por trás da música</option>
+<option>Trecho emocionante da música</option>
+<option>Mensagem romântica para compartilhar</option>
+<option>Apresentação do artista Roby Leão</option>
+</select>
+
+<label for="detalhe">Detalhe ou ideia (opcional)</label>
+<textarea id="detalhe" rows="3" placeholder="Conte o que você quer destacar..."></textarea>
+
+<button id="gerar">Preparar campanha</button>
+</section>
+
+<section class="card" id="resultado" hidden>
+<h2>Material para revisar</h2>
+<div id="saida"></div>
+<button id="copiar">Copiar material</button>
+<button class="secondary" id="aprovar">Aprovar ideia</button>
+<p id="estado" class="status" aria-live="polite"></p>
+</section>
+
+<section class="card">
+<h2>Próximo passo</h2>
+<p>Publique pelo aplicativo oficial do TikTok e depois registre os resultados para analisarmos o desempenho.</p>
+<a class="link" href="https://www.tiktok.com/@robyleao" target="_blank" rel="noopener">Abrir meu TikTok</a>
+</section>
+</main>
+
+<script>
+const $=id=>document.getElementById(id);
+let material="";
+
+$("gerar").addEventListener("click",()=>{
+ const musica=$("musica").value.trim();
+
+ if(!musica){
+  alert("Informe o nome da música.");
+  return;
+ }
+
+ const tema=$("tema").value;
+ const detalhe=$("detalhe").value.trim();
+
+ material=
+ "CAMPANHA TIKTOK — @robyleao\n\n"+
+ "Música: "+musica+"\n"+
+ "Tema: "+tema+
+ "\n\nROTEIRO (20–30 segundos)\n"+
+ "1. Comece com uma frase que desperte curiosidade.\n"+
+ "2. Apresente um trecho emocionante da música.\n"+
+ "3. Convide as pessoas a conhecerem o perfil @robyleao.\n"+
+ (detalhe?"\nDestaque solicitado: "+detalhe:"")+
+ "\n\nLEGENDA\n"+
+ "Uma música, muitos sentimentos. Conheça \""+musica+
+ "\" e acompanhe @robyleao para ouvir mais.\n\n"+
+ "HASHTAGS\n"+
+ "#RobyLeao #MusicaAutoral #MusicaRomantica #Sertanejo #NovosArtistas\n\n"+
+ "CHAMADA\n"+
+ "Se essa música falou com você, siga @robyleao e compartilhe com alguém especial.\n\n"+
+ "REVISÃO\nConfira o áudio, os direitos de uso e o vídeo antes de publicar.";
+
+ $("saida").textContent=material;
+ $("resultado").hidden=false;
+ $("estado").textContent="Ideia preparada para sua revisão.";
+});
+
+$("copiar").addEventListener("click",async()=>{
+ try{
+  await navigator.clipboard.writeText(material);
+  $("estado").textContent="Material copiado.";
+ }catch(e){
+  $("estado").textContent="Selecione e copie o texto manualmente.";
+ }
+});
+
+$("aprovar").addEventListener("click",()=>{
+ $("estado no").textContent="Ideia aprovada neste navegador. Nenhuma publicação foi feita.";
+});
+</script>
+</body>
+</html>
